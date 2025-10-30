@@ -1,0 +1,47 @@
+{
+  "os":  "macOS-14.6-arm64-arm-64bit-Mach-O",
+  "python":  "CPython 3.13.4",
+  "startedAt":  "2025-10-28T11:21:33.921453Z",
+  "args":  [
+    "--model-config",
+    "model_config.large.yaml",
+    "--train-config",
+    "train_config.yaml",
+    "--checkpoint-path",
+    "models/large",
+    "--wandb-run-name",
+    "trans-large"
+  ],
+  "program":  "/Users/venkatgandhasri/cw2nlp/F21NL-cw2/part2/train.py",
+  "codePath":  "part2/train.py",
+  "codePathLocal":  "train.py",
+  "git":  {
+    "remote":  "https://github.com/CamyH/F21NL-cw2.git",
+    "commit":  "bf40bd8efb135beebcdf51290196426238c1c5ff"
+  },
+  "email":  "cameronjhunt88@outlook.com",
+  "root":  "/Users/venkatgandhasri/cw2nlp/F21NL-cw2/part2",
+  "host":  "Venkats-MacBook-Air.local",
+  "executable":  "/Users/venkatgandhasri/cw2nlp/F21NL-cw2/.venv/bin/python3",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "245107195904",
+      "used":  "217075683328"
+    }
+  },
+  "memory":  {
+    "total":  "17179869184"
+  },
+  "apple":  {
+    "name":  "Apple M3",
+    "ecpuCores":  4,
+    "pcpuCores":  4,
+    "gpuCores":  8,
+    "memoryGb":  16,
+    "swapTotalBytes":  "4294967296",
+    "ramTotalBytes":  "17179869184"
+  },
+  "writerId":  "6fnnxxy5dvuwyfbgu43jn17lmhmfwc1y"
+}

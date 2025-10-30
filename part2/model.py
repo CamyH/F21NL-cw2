@@ -121,24 +121,32 @@ class CausalSelfAttention(nn.Module):
                 attentions: (optional) Tensor of shape (B, nh, T, T) where nh is the number of heads.
         """
         B, T, C = x.size()
-        ### Your code here (~8-15 lines) ###
-        raise NotImplementedError("Implement the forward method in CausalSelfAttention in model.py")
-        # Step 1: Calculate query, key, values for all heads
-        # (B, nh, T, hs)
-      
-        # Step 2: Compute attention scores
-        # Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
+        nh = self.n_head
+        hs = C // nh
 
-        # Step 3: Masking out the future tokens (causal) and softmax
+        # Step 1: keys, queries, values for all heads and fold head dimension
+        k = self.key(x).view(B, T, nh, hs).transpose(1, 2)  # (B, nh, T, hs)
+        q = self.query(x).view(B, T, nh, hs).transpose(1, 2)  # (B, nh, T, hs)
+        v = self.value(x).view(B, T, nh, hs).transpose(1, 2)  # (B, nh, T, hs)
 
-        # Step 4: Compute the attention output
-        # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
+        # Step 2: attention scores (scaled dot-product)
+        att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(hs))  # (B, nh, T, T)
+
+        # Step 3: causal mask and softmax
+        att = att.masked_fill(self.mask[:, :, :T, :T] == 0, float("-inf"))
+        att = F.softmax(att, dim=-1)
+        att = self.attn_drop(att)
+
+        # Step 4: attention output
+        y = att @ v  # (B, nh, T, hs)
 
         # Step 5: re-assemble all head outputs side by side
-        # (B, T, nh, hs) -> (B, T, C)
+        y = y.transpose(1, 2).contiguous().view(B, T, C)  # (B, T, C)
 
         # Step 6: output projection + dropout
-        ### End of your code ###
+        y = self.resid_drop(self.proj(y))
+
+        attention = att if output_attentions else None
         return GPTAttentionOutput(output=y, attentions=attention)
 
 

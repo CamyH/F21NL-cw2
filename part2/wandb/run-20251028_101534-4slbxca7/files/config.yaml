@@ -1,0 +1,100 @@
+_wandb:
+    value:
+        cli_version: 0.22.2
+        e:
+            kip15qmtr3dusm41gpne1zu2q3c1prh3:
+                apple:
+                    ecpuCores: 4
+                    gpuCores: 8
+                    memoryGb: 16
+                    name: Apple M3
+                    pcpuCores: 4
+                    ramTotalBytes: "17179869184"
+                args:
+                    - --model-config
+                    - model_config.small.yaml
+                    - --train-config
+                    - train_config.yaml
+                    - --checkpoint-path
+                    - models/small
+                    - --wandb-run-name
+                    - trans-small
+                codePath: part2/train.py
+                codePathLocal: train.py
+                cpu_count: 8
+                cpu_count_logical: 8
+                disk:
+                    /:
+                        total: "245107195904"
+                        used: "213059444736"
+                email: cameronjhunt88@outlook.com
+                executable: /Users/venkatgandhasri/cw2nlp/F21NL-cw2/.venv/bin/python3
+                git:
+                    commit: bf40bd8efb135beebcdf51290196426238c1c5ff
+                    remote: https://github.com/CamyH/F21NL-cw2.git
+                host: Venkats-MacBook-Air.local
+                memory:
+                    total: "17179869184"
+                os: macOS-14.6-arm64-arm-64bit-Mach-O
+                program: /Users/venkatgandhasri/cw2nlp/F21NL-cw2/part2/train.py
+                python: CPython 3.13.4
+                root: /Users/venkatgandhasri/cw2nlp/F21NL-cw2/part2
+                startedAt: "2025-10-28T10:15:34.148473Z"
+                writerId: kip15qmtr3dusm41gpne1zu2q3c1prh3
+        m: []
+        python_version: 3.13.4
+        t:
+            "1":
+                - 1
+            "2":
+                - 1
+            "3":
+                - 13
+                - 16
+                - 61
+            "4": 3.13.4
+            "5": 0.22.2
+            "12": 0.22.2
+            "13": darwin-arm64
+betas:
+    value:
+        - 0.9
+        - 0.95
+block_size:
+    value: 128
+decay_lr:
+    value: true
+dev_batch_size:
+    value: 128
+dropout:
+    value: 0.1
+grad_clip:
+    value: 1
+log_every:
+    value: 10
+lr:
+    value: 0.0006
+max_epoch:
+    value: 30
+min_lr:
+    value: 6e-05
+n_embed:
+    value: 16
+n_head:
+    value: 2
+n_layer:
+    value: 2
+patience:
+    value: 5
+seed:
+    value: 0
+train_batch_size:
+    value: 32
+valid_niter:
+    value: 2000
+vocab_size:
+    value: 15003
+warmup_percent_iters:
+    value: 0.1
+weight_decay:
+    value: 0.1
