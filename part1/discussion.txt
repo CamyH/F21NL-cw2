@@ -1,0 +1,17 @@
+Model Size	Embedding Size	Encoder Size	BLEU Score
+Small	16	16	17.17
+Medium	64	64	49.31
+Large	128	128	53.49
+Extra Large	512	512	56.03
+
+The results show that there was a clear difference between the different embedding and encoder hidden sizes. 
+An embedding and encoder size of 16 return a small BLEU score of only 17.17. An article by StudySmarter states that a 
+BLEU score of between 0.30 and 0.50 is considered "good" for average translations and a score above 0.50 is considered very good, 
+almost human like.[https://www.studysmarter.co.uk/explanations/engineering/artificial-intelligence-engineering/bleu-score/]
+This means that the small model size was inadequate at capturing enough semantic context between English and 
+French to properly decode the input text thus decoding the text to French with a very poor BLEU score. However, the increase up to 
+"medium" or sizes of 64 saw a big jump in performance with a score of 49.31 
+putting it on the verge of high quality showing the model was able to retain a more context to help it with decoding to French. 
+As the size was increased to 128 and 512, improvements slowed significantly, with the scores 
+increasing slightly to 53.49 and 56.03 respectively, both high quality scores. This shows that while performance did increase, perhaps 
+the medium size offers the best performance to resource usage.
