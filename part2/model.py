@@ -330,17 +330,27 @@ class GPT(nn.Module):
             logits = logits[:, -1, :] / temperature
 
             if do_sample:
-                ### Your code here (~5-12 lines) ###
-                raise NotImplementedError("Implement sampling in the generate method in model.py (MSc students only)")
-                # 1. If top_k is not None, crop the logits to only the top k options
+                vocab_size = logits.size(-1)
+                if top_k is not None and top_k > 0 and top_k < vocab_size:
+                    topk_values = torch.topk(logits, top_k, dim=-1).values[..., -1].unsqueeze(-1)
+                    logits = logits.masked_fill(logits < topk_values, float("-inf"))
 
-                # 2. If top_p is not None, crop the logits to only the top p options
+                if top_p is not None and 0.0 < top_p < 1.0:
+                    sorted_logits, sorted_indices = torch.sort(logits, descending=True, dim=-1)
+                    sorted_probs = F.softmax(sorted_logits, dim=-1)
+                    cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
 
-                # apply softmax to convert logits to (normalized) probabilities
-                # sample from the distribution using the re-normalized probabilities
+                    sorted_indices_to_remove = cumulative_probs > top_p
+                    sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
+                    sorted_indices_to_remove[..., 0] = False
 
-                # append sampled index to the running sequence and continue
-                ### End of your code ###
+                    indices_to_remove = torch.zeros_like(logits, dtype=torch.bool)
+                    indices_to_remove.scatter_(dim=-1, index=sorted_indices, src=sorted_indices_to_remove)
+                    logits = logits.masked_fill(indices_to_remove, float("-inf"))
+
+                probs = F.softmax(logits, dim=-1)
+                predicted_id = torch.multinomial(probs, num_samples=1)
+                input_ids = torch.cat((input_ids, predicted_id), dim=1)
             else:
                 # greedily take the argmax
                 predicted_id = torch.argmax(logits, dim=-1, keepdim=True)
