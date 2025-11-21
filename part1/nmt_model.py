@@ -231,7 +231,6 @@ class NMT(nn.Module):
         enc_masks: torch.Tensor,
     ) -> tuple[tuple[torch.Tensor, torch.Tensor], torch.Tensor, torch.Tensor]:
         """Compute one forward step of the LSTM decoder, including the attention computation.
-
         Args:
             Ybar_t (Tensor): Concatenated Tensor of [Y_t o_prev], with shape (b, e + h). The input for the decoder,
                                 where b = batch size, e = embedding size, h = hidden size.
@@ -252,7 +251,6 @@ class NMT(nn.Module):
                     your implementation.
         """
 
-        
         # 1. Decoder step
         dec_hidden, dec_cell = self.decoder(Ybar_t, dec_state)
         dec_state = (dec_hidden, dec_cell)
